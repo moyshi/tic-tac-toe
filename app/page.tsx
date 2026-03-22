@@ -1,6 +1,7 @@
 'use client';
 import { useState } from "react";
 import GetNames from "./_components/GetNames";
+import TicTacToe from "./_components/TicTacToe";
 
 
 export default function Home() {
@@ -8,7 +9,7 @@ export default function Home() {
   const [secondPlayerName, setSecondPlayerName] = useState<string>('')
   const [getNamesOpen, setGetNamesOpen] = useState<boolean>(true)
   return (
-    <div className="flex w-screen h-screen justify-center items-center">
+    <div className="flex flex-col w-screen h-screen justify-center items-center">
       {getNamesOpen ?
         <GetNames 
           names={[
@@ -27,29 +28,3 @@ export default function Home() {
   );
 }
 
-function TicTacToe({firstPlayerName, secondPlayerName}: {firstPlayerName: string, secondPlayerName: string}) {
-  const [board, setBoard] = useState<string[][]>(Array(3).fill([...Array(3).fill('')]))
-  return (
-    <>
-      {firstPlayerName}
-      {secondPlayerName}
-      <div className="flex max-h-7/10 h-[70vw] max-w-7/10 w-[70vh]  relative">
-        <line className="absolute top-1/3 bg-green-300 w-full h-2"/>
-        <line className="absolute top-2/3 bg-green-300 w-full h-2"/>
-        <line className="absolute left-1/3 bg-green-300 h-full w-2"/>
-        <line className="absolute left-2/3 bg-green-300 h-full w-2"/>
-        {board.map((row, hight) => row.map((value, witdh) => 
-          <div
-            key={String(witdh) + String(hight)}
-            className={`absolute text-9xl h-1/3 w-1/3 top-${hight}/3 left-${witdh}/3 flex justify-center items-center`}
-            onClick={() => {setBoard((privBoard:string[][]) => {
-              console.log(board)
-              console.log(hight, witdh)
-              return privBoard
-            })}}
-          >{value}</div>
-        ))}
-      </div>
-    </>
-  )
-}
