@@ -8,7 +8,13 @@ export default function Board({board, click, win}:{board:string[][], click:(y:nu
       <div className={`absolute bg-green-300 w-full h-2`} style={{top:`${(2 / board.length) * 100}%`}}/>
       <div className={`absolute bg-green-300 h-full w-2`} style={{left:`${(1 / board.length) * 100}%`}}/>
       <div className={`absolute bg-green-300 h-full w-2`} style={{left:`${(2 / board.length) * 100}%`}}/>
-      <div className={`h-full w-full grid grid-cols-${board.length} grid-rows-${board.length}`}>
+      <div 
+        className={`h-full w-full grid`}
+        style={{
+          gridTemplateColumns: `${100/3}% `.repeat(3),
+          gridTemplateRows: `${100/3}% `.repeat(3)
+        }}
+      >
         {board.map((row, hight) => row.map((value, witdh) => 
           <Button
             key={`${hight}${witdh}`}
