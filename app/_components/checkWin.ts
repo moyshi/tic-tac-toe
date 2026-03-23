@@ -1,15 +1,29 @@
 
-export default function checkWin(board:string[][]):string {
+export enum TypeWin {
+  SlantButtomToTop = -1,
+  Row,
+  SlantTopToButtom,
+  Col,
+}
+
+export interface WinResult {typeWin: TypeWin, x: number, y: number}
+
+export default function checkWin(board:string[][]): WinResult | void {
   let winRow, winCol, winSlantTopToButtom, winSlantButtomToTop;
 
-  for (let y = 0; y < board.length; y++) {
-    winRow = board[y][0]
-    winCol = board[0][y]
-    for (let x = 1; x < board.length; x++) {
-      if (!winRow || board[y][x] != board[y][x-1]) {winRow = ''};
-      if (!winCol || board[x][y] != board[x-1][y]) {winCol = ''};
+  for (let first_index = 0; first_index < board.length; first_index++) {
+    winRow = board[first_index][0]
+    winCol = board[0][first_index]
+    for (let second_index = 1; second_index < board.length; second_index++) {
+      if (!winRow || board[first_index][second_index] != board[first_index][second_index-1]) {winRow = ''};
+      if (!winCol || board[second_index][first_index] != board[second_index-1][first_index]) {winCol = ''};
     }
-    if (winRow || winCol) return winRow || winCol;
+    if (winRow) {
+      return {typeWin: TypeWin.Row, x: 0, y: first_index}
+    }
+    if (winCol) {
+      return {typeWin: TypeWin.Col, x: first_index, y: 0}
+    }
   }
 
   winSlantTopToButtom = board[0][0]
@@ -19,5 +33,10 @@ export default function checkWin(board:string[][]):string {
     if (!winSlantButtomToTop || board[board.length - i - 1][i] != board[board.length - i][i-1]) {winSlantButtomToTop = ''};
   }
 
-  return winSlantTopToButtom || winSlantButtomToTop;
+  if (winSlantTopToButtom) {
+    return {typeWin: TypeWin.SlantTopToButtom, y:0, x:0}
+  }
+  if (winSlantButtomToTop) {
+    return {typeWin: TypeWin.SlantButtomToTop, y:2, x:0}
+  }
 }
