@@ -50,14 +50,20 @@ export default function TicTacToe({firstPlayerName, secondPlayerName}: {firstPla
 function Board({board, click}:{board:string[][], click:(y:number, x:number) => void}) {
   return (
     <div className="flex max-h-7/10 h-[70vw] max-w-7/10 w-[70vh]  relative">
-      <line className={`absolute top-1/${BOARD_LENGTH} bg-green-300 w-full h-2`}/>
-      <line className={`absolute top-2/${BOARD_LENGTH} bg-green-300 w-full h-2`}/>
-      <line className={`absolute left-1/${BOARD_LENGTH} bg-green-300 h-full w-2`}/>
-      <line className={`absolute left-2/${BOARD_LENGTH} bg-green-300 h-full w-2`}/>
+      <div className={`absolute bg-green-300 w-full h-2`} style={{top:`${(1 / BOARD_LENGTH) * 100}%`}}/>
+      <div className={`absolute bg-green-300 w-full h-2`} style={{top:`${(2 / BOARD_LENGTH) * 100}%`}}/>
+      <div className={`absolute bg-green-300 h-full w-2`} style={{left:`${(1 / BOARD_LENGTH) * 100}%`}}/>
+      <div className={`absolute bg-green-300 h-full w-2`} style={{left:`${(2 / BOARD_LENGTH) * 100}%`}}/>
       {board.map((row, hight) => row.map((value, witdh) => 
         <div
           key={`${hight}${witdh}`}
-          className={`absolute text-9xl h-1/${BOARD_LENGTH} w-1/${BOARD_LENGTH} top-${hight}/${BOARD_LENGTH} left-${witdh}/${BOARD_LENGTH} flex justify-center items-center`}
+          className={`absolute text-9xl flex justify-center items-center`}
+          style={{
+            height:`${(1 / BOARD_LENGTH) * 100}%`,
+            width:`${(1 / BOARD_LENGTH) * 100}%`,
+            top:`${(hight / BOARD_LENGTH) * 100}%`,
+            left:`${(witdh / BOARD_LENGTH) * 100}%`
+          }}
           onClick={() => {click(hight, witdh)}}
         >{value}</div>
       ))}
