@@ -8,7 +8,7 @@ export enum WinOrientation {
 
 export interface WinResult {orientation: WinOrientation, posX: number, posY: number}
 
-export default function checkWin(board:string[][]): WinResult | void {
+export default function checkWin(board:(number|undefined)[][]): WinResult | void {
   let winRow, winCol, winSlantTopToButtom, winSlantButtomToTop;
 
   for (let first_index = 0; first_index < board.length; first_index++) {

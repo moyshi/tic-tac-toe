@@ -1,8 +1,9 @@
 import { Button } from "@mui/material"
 import { WinOrientation, WinResult } from "./checkWin"
 import { useCallback, useState } from "react"
+import { FillOptions } from "./TicTacToe"
 
-export default function Board({board, click, win}:{board:string[][], click:(y:number, x:number) => void, win: WinResult | void}) {
+export default function Board({board, click, win}:{board:(FillOptions|undefined)[][], click:(y:number, x:number) => void, win: WinResult | void}) {
   const [buttonsDisabled, setButtonsDisabled] = useState<Record<string, boolean>>({})
   const changeButtonsDisabled = useCallback((key:string, status:boolean) => {
     setButtonsDisabled((privButtonsDisabled) => {return {...privButtonsDisabled, [key]: status}})
