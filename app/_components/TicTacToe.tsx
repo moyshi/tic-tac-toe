@@ -54,11 +54,20 @@ export default function TicTacToe({firstPlayerName, secondPlayerName}: {firstPla
             </div>
         </Dialog>
         <h1 className="mb-10">{(turnNum % 2 === 0) ? firstPlayerName : secondPlayerName} turns</h1>
-        <Board
-            board={board}
-            click={boardClick}
-            win={win}
-        />
+        <div className="max-h-7/10 w-full flex justify-around">
+            <Board
+                board={board}
+                click={boardClick}
+                win={win}
+                currentPlayerTurn={Boolean(turnNum % 2)}
+            />
+            <Board
+                board={board}
+                click={boardClick}
+                win={win}
+                currentPlayerTurn={!Boolean(turnNum % 2)}
+            />
+        </div>
     </>
   )
 }
