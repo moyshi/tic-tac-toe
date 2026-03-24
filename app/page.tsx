@@ -13,8 +13,8 @@ export default function Home() {
       {getNamesOpen ?
         <GetNames 
           names={[
-            {titele: 'first player name', velue: firstPlayerName, setName: setFirstPlayerName},
-            {titele: 'second player name', velue: secondPlayerName, setName: setSecondPlayerName}
+            {titele: 'first player name', setName: setFirstPlayerName},
+            {titele: 'second player name', setName: setSecondPlayerName}
           ]}
           close={() => {setGetNamesOpen(false)}}
         />

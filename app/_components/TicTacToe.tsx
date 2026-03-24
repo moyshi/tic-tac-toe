@@ -5,21 +5,25 @@ import checkWin from "./checkWin";
 
 const OPTIONS_TO_FILL = ['X', 'O']
 const BOARD_LENGTH = 3
-const emptyBoard = () => Array.from({ length: BOARD_LENGTH }, () => Array.from({length: BOARD_LENGTH}, () => (''))) 
+
+
+type BoardType = [[string, string, string], [string, string, string], [string, string, string]]
+
+const emptyBoard = ():BoardType => Array.from({ length: BOARD_LENGTH }, () => Array.from({length: BOARD_LENGTH}, () => (''))) as BoardType
 
 export default function TicTacToe({firstPlayerName, secondPlayerName}: {firstPlayerName:string, secondPlayerName:string}) {
-  const [board, setBoard] = useState<string[][]>(emptyBoard())
+  const [board, setBoard] = useState<BoardType>(emptyBoard())
   const [turnNum, setTurnNum] = useState<number>(0)
   const boardClick = useCallback((y:number, x:number) => {
-    setBoard((priv) => {
-      if (priv[y][x]) {return priv};
-      priv = [
-        ...priv.slice(0, y),
-        priv[y].map((v, i) => (i === x) ? OPTIONS_TO_FILL[turnNum % 2] : v),
-        ...priv.slice(y + 1)
-    ]
-      setTurnNum(turnNum + 1)
-      return priv
+    setBoard((currentBoard) => {
+        if (currentBoard[y][x]) {return currentBoard};
+        const newBoard = [
+            ...currentBoard.slice(0, y),
+            currentBoard[y].map((v, i) => (i === x) ? OPTIONS_TO_FILL[turnNum % 2] : v),
+            ...currentBoard.slice(y + 1)
+        ] as BoardType
+        setTurnNum(turnNum + 1)
+        return newBoard
     })
   }, [turnNum])
   const win = useMemo(() => checkWin(board), [board]);

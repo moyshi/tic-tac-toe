@@ -1,5 +1,5 @@
 import { Button } from "@mui/material"
-import { TypeWin, WinResult } from "./checkWin"
+import { WinOrientation, WinResult } from "./checkWin"
 
 export default function Board({board, click, win}:{board:string[][], click:(y:number, x:number) => void, win: WinResult | void}) {
   return (
@@ -11,8 +11,8 @@ export default function Board({board, click, win}:{board:string[][], click:(y:nu
       <div 
         className={`h-full w-full grid`}
         style={{
-          gridTemplateColumns: `${100/3}% `.repeat(3),
-          gridTemplateRows: `${100/3}% `.repeat(3)
+          gridTemplateColumns: `${100/board.length}% `.repeat(board.length),
+          gridTemplateRows: `${100/board[0].length}% `.repeat(board[0].length)
         }}
       >
         {board.map((row, hight) => row.map((value, witdh) => 
@@ -29,12 +29,12 @@ export default function Board({board, click, win}:{board:string[][], click:(y:nu
       </div>
       {(win !== undefined) &&
         <div 
-          className={`absolute bg-gray-500 h-2 origin-top-left`}
+          className={`absolute bg-gray-500 h-2 origin-[13%_50%]`}
           style={{
-            left:`${((win.x + 0.5) / board.length)  * 100}%`,
+            left:`${((win.x + 0.15) / board.length)  * 100}%`,
             top:`${((win.y + 0.5) / board.length) * 100}%`,
-            transform: `rotate(${(win.typeWin * 45)}deg)`,
-            width: TypeWin[win.typeWin].startsWith('Slant') ? '95%' : '66%'
+            transform: `rotate(${(win.orientation * 45)}deg)`,
+            width: WinOrientation[win.orientation].startsWith('Slant') ? '120%' : '90%'
           }}
         />
       }
