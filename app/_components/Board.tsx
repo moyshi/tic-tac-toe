@@ -44,8 +44,8 @@ export default function Board({board, click, win}:{board:string[][], click:(y:nu
         <div 
           className={`absolute bg-gray-500 h-2`}
           style={{
-            left:`${((win.x + 0.15) / board.length)  * 100}%`,
-            top:`${((win.y + 0.5) / board.length) * 100}%`,
+            left:`${((win.posX + 0.15) / board.length)  * 100}%`,
+            top:`${((win.posY + 0.5) / board.length) * 100}%`,
             transform: `rotate(${(win.orientation * 45)}deg)`,
             transformOrigin: WinOrientation[win.orientation].startsWith('Slant') ? "10.3% 50%" : "13% 50%",
             width: WinOrientation[win.orientation].startsWith('Slant') ? '120%' : '90%'

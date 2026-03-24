@@ -7,7 +7,7 @@ const OPTIONS_TO_FILL = ['X', 'O']
 const BOARD_LENGTH = 3
 
 
-type BoardType = [[string, string, string], [string, string, string], [string, string, string]]
+type BoardType = ("X" | "O" | "")[][]
 
 const emptyBoard = ():BoardType => Array.from({ length: BOARD_LENGTH }, () => Array.from({length: BOARD_LENGTH}, () => (''))) as BoardType
 
@@ -37,7 +37,7 @@ export default function TicTacToe({firstPlayerName, secondPlayerName}: {firstPla
             <div className="h-40 w-60 flex flex-col space-between justify-around items-center">
                 <h1>
                     {win ?
-                        `${(OPTIONS_TO_FILL.indexOf(board[win.x][win.y]) === 0) ? firstPlayerName : secondPlayerName} wins!`
+                        `${(OPTIONS_TO_FILL.indexOf(board[win.posX][win.posY]) === 0) ? firstPlayerName : secondPlayerName} wins!`
                     :
                         "game over, no one wins."
                     }

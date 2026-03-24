@@ -6,7 +6,7 @@ export enum WinOrientation {
   Col,
 }
 
-export interface WinResult {orientation: WinOrientation, x: number, y: number}
+export interface WinResult {orientation: WinOrientation, posX: number, posY: number}
 
 export default function checkWin(board:string[][]): WinResult | void {
   let winRow, winCol, winSlantTopToButtom, winSlantButtomToTop;
@@ -19,10 +19,10 @@ export default function checkWin(board:string[][]): WinResult | void {
       if (!winCol || board[second_index][first_index] != board[second_index-1][first_index]) {winCol = ''};
     }
     if (winRow) {
-      return {orientation: WinOrientation.Row, x: 0, y: first_index}
+      return {orientation: WinOrientation.Row, posX: 0, posY: first_index}
     }
     if (winCol) {
-      return {orientation: WinOrientation.Col, x: first_index, y: 0}
+      return {orientation: WinOrientation.Col, posX: first_index, posY: 0}
     }
   }
 
@@ -34,9 +34,9 @@ export default function checkWin(board:string[][]): WinResult | void {
   }
 
   if (winSlantTopToButtom) {
-    return {orientation: WinOrientation.SlantTopToButtom, y:0, x:0}
+    return {orientation: WinOrientation.SlantTopToButtom, posY:0, posX:0}
   }
   if (winSlantButtomToTop) {
-    return {orientation: WinOrientation.SlantButtomToTop, y:2, x:0}
+    return {orientation: WinOrientation.SlantButtomToTop, posY:2, posX:0}
   }
 }
